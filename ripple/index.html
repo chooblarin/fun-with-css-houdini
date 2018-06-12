@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Ripple</title>
+</head>
+
+<body>
+  <button class="ripple">Click me</button>
+  <button class="ripple">Click me</button>
+  <button class="ripple">Click me</button>
+  <button class="ripple">Click me</button>
+
+  <style>
+    body {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 200px;
+    }
+
+    button:focus {
+      outline: none;
+    }
+
+    .ripple {
+      font-size: 4em;
+      background-color: hsl(240, 40%, 50%);
+      border: 0;
+      color: white;
+      cursor: pointer;
+      --ripple-x: 0;
+      --ripple-y: 0;
+      --ripple-color: rgba(255, 0, 100, 0.4);
+      --ripple-speed: 1.0;
+      --animation-tick: 0;
+    }
+
+    .ripple.animating {
+      background-image: paint(ripple);
+    }
+
+    .ripple:nth-child(2) {
+      background-color: hsl(0, 40%, 50%);
+      --ripple-color: rgba(150, 200, 15, 0.4);
+    }
+
+    .ripple:nth-child(3) {
+      background-color: hsl(280, 80%, 50%);
+      --ripple-color: rgba(255, 255, 55, 0.4);
+      --ripple-speed: 1.4;
+    }
+
+    .ripple:nth-child(4) {
+      background-color: hsl(120, 20%, 50%);
+      --ripple-color: rgba(0, 255, 255, 0.4);
+      --ripple-speed: 0.6;
+    }
+  </style>
+
+  <script>
+    CSS.paintWorklet.addModule('ripple.js');
+
+    function setupRippleButton(button) {
+      let start;
+
+      button.addEventListener('click', (ev) => {
+
+        button.classList.add('animating');
+        const [x, y] = [ev.offsetX, ev.offsetY];
+
+        start = performance.now();
+
+        const anim = (now) => {
+
+          const count = Math.floor(now - start);
+
+          button.style.cssText = `--ripple-x: ${x}; --ripple-y: ${y}; --animation-tick: ${count};`;
+
+          if (1000 < count) {
+            button.classList.remove('animating');
+            button.style.cssText = `--animation-tick: 0`;
+            return;
+          }
+          requestAnimationFrame(anim);
+        };
+
+        requestAnimationFrame(anim);
+      });
+    }
+
+    document.querySelectorAll('.ripple').forEach(setupRippleButton);
+  </script>
+</body>
+
+</html>
