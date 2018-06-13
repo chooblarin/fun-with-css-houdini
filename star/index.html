@@ -7,31 +7,77 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Star</title>
   <style>
-    div {
-      font-family: Roboto;
-      width: 240px;
-      height: 240px;
-      font-size: 56px;
-      line-height: 3em;
-      box-sizing: border-box;
-      text-align: center;
-      color: white;
-      background-image: linear-gradient(180deg, hsl(229, 100%, 30%), hsl(0, 100%, 20%));
+    body {
+      font-family: Arial, Helvetica, sans-serif;
     }
 
-    div {
-      --radius: 120;
+    .stars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto;
+    }
+
+    .star {
+      height: 200px;
+      font-size: 48px;
+      line-height: 4em;
+      text-align: center;
+      color: white;
+      background-image: linear-gradient(180deg, hsl(129, 40%, 30%), hsl(300, 100%, 20%));
+      --radius: 100;
       --point-num: 5;
       mask-image: paint(star);
       -webkit-mask-image: paint(star);
+    }
+
+    .star:nth-child(1) {
+      --point-num: 3;
+    }
+
+    .star:nth-child(2) {
+      --point-num: 5;
+    }
+
+    .star:nth-child(3) {
+      --point-num: 6;
+    }
+
+    .star:nth-child(4) {
+      --point-num: 7;
+    }
+
+    .star:nth-child(5) {
+      --point-num: 8;
+    }
+
+    .star:nth-child(6) {
+      --point-num: 80;
     }
   </style>
 </head>
 
 <body>
-  <div>
-    Houdini
+  <div class="stars">
+    <div class="star">
+      Hi
+    </div>
+    <div class="star">
+      Yo
+    </div>
+    <div class="star">
+      Hoi
+    </div>
+    <div class="star">
+      Yay
+    </div>
+    <div class="star">
+      Foo
+    </div>
+    <div class="star">
+      Uh
+    </div>
   </div>
+
   <script>
     CSS.paintWorklet.addModule('star.js');
   </script>
