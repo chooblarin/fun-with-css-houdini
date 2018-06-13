@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Fun with CSS Houdini</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css?family=Noto+Sans');
+    * {
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-family: 'Noto Sans', Helvetica;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #FFFFF1;
+    }
+
+    h1 {
+      color: hsl(200, 50%, 30%);
+      margin: 40px 0;
+    }
+
+    ul {
+      padding: 0;
+      list-style: none;
+    }
+
+    li {
+      margin: 15px 0;
+    }
+
+    a {
+      color: hsl(200, 50%, 50%);
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: hsl(300, 50%, 50%);
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Fun with CSS Houdini</h1>
+
+  <ul>
+    <li>
+      <a href="checkerboard/">Checker board</a>
+    </li>
+    <li>
+      <a href="star/">Star</a>
+    </li>
+    <li>
+      <a href="ripple/">Ripple</a>
+    </li>
+    <li>
+      <a href="rough-boxes/">Rough boxes</a>
+    </li>
+  </ul>
+
+  <style>
+  </style>
+</body>
+
+</html>
