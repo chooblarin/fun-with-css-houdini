@@ -234,24 +234,28 @@
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const scroller = document.querySelector('.scroll');
-      const parallax = document.querySelector('.parallax');
+    if (window.animationWorklet) {
+      document.addEventListener('DOMContentLoaded', () => {
+        const scroller = document.querySelector('.scroll');
+        const parallax = document.querySelector('.parallax');
 
-      window.animationWorklet.addModule('parallax-animator.js')
-        .then(() => {
-          const scrollRange = scroller.scrollHeight - scroller.clientHeight;
-          const parallaxAnimator = new WorkletAnimation(
-            'parallax',
-            new KeyframeEffect(parallax, [
-              { 'transform': 'translateY(0)' },
-              { 'transform': 'translateY(' + -scrollRange + 'px)' }
-            ], scrollRange),
-            new ScrollTimeline({ scrollSource: scroller, timeRange: 1 })
-          );
-          parallaxAnimator.play();
-        });
-    });
+        window.animationWorklet.addModule('parallax-animator.js')
+          .then(() => {
+            const scrollRange = scroller.scrollHeight - scroller.clientHeight;
+            const parallaxAnimator = new WorkletAnimation(
+              'parallax',
+              new KeyframeEffect(parallax, [
+                { 'transform': 'translateY(0)' },
+                { 'transform': 'translateY(' + -scrollRange + 'px)' }
+              ], scrollRange),
+              new ScrollTimeline({ scrollSource: scroller, timeRange: 1 })
+            );
+            parallaxAnimator.play();
+          });
+      });
+    } else {
+      console.error('Not supported!');
+    }
   </script>
 </body>
 
