@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Rough Boxes</title>
+  <style>
+    .boxes {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 200px);
+      grid-gap: 50px;
+      margin: 100px;
+    }
+
+    .box {
+      background: var(--rough-fill);
+      --rough-fill: hsl(200, 60%, 70%);
+      --rough-stroke: black;
+      --rough-stroke-width: 1px;
+      --rough-roughness: 5;
+    }
+
+    .box:nth-child(3n) {
+      --rough-stroke-width: 3px;
+    }
+
+    .box:nth-child(3n-1) {
+      --rough-stroke-width: 2px;
+    }
+
+    .box:nth-child(n+4) {
+      --rough-roughness: 10;
+    }
+
+    .box:nth-child(n+7) {
+      --rough-roughness: 20;
+    }
+
+
+    .box:nth-child(2) {
+      --rough-fill: hsl(20, 60%, 70%);
+    }
+
+    .box:nth-child(3) {
+      --rough-fill: hsl(60, 60%, 70%);
+    }
+
+    .box:nth-child(4) {
+      --rough-fill: hsl(100, 60%, 70%);
+    }
+
+    .box:nth-child(5) {
+      --rough-fill: hsl(140, 60%, 70%);
+    }
+
+    .box:nth-child(6) {
+      --rough-fill: hsl(180, 60%, 70%);
+    }
+
+    .box:nth-child(7) {
+      --rough-fill: hsl(220, 60%, 70%);
+    }
+
+    .box:nth-child(8) {
+      --rough-fill: hsl(260, 60%, 70%);
+    }
+
+    .box:nth-child(9) {
+      --rough-fill: hsl(300, 60%, 70%);
+    }
+
+    @supports (border-image-source: paint(rough-boxes)) {
+      .box {
+        border-image-source: paint(rough-boxes);
+        border-image-slice: 0 fill;
+        border-image-outset: 10px;
+        background: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="boxes">
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+  </div>
+
+  <script>
+    if ('paintWorklet' in CSS
+      && typeof CSS.paintWorklet.addModule === 'function') {
+      CSS.paintWorklet.addModule('rough-boxes.js');
+    } else {
+      console.log('Please enabled CSS property');
+    }
+  </script>
+</body>
+
+</html>
